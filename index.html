@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>TODO LIST</title>
+  <link rel="stylesheet" href="app.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/e3ae05b8e6.js"></script>
+</head>
+<body>
+
+  <main class="main" id="app">
+    <form class="form">
+      <div class="inputArea">
+        <input type="text" class="inputText" value="" placeholder="ここにTODO内容を書く" v-model="inputText">
+        <span :class="{ error:isError }" v-show="isError">入力が空です</span>
+      </div>
+      <button class="btn" @click.prevent="addToDo">TODOを追加</button>
+    </form>
+
+    <div class="searchBox">
+      <i class="fa fa-search searchBox__icon" aria-hidden="true"></i>
+      <input type="text" class="searchBox__input" placeholder="ここに絞り込みたいキーワードを入力する" v-model="searchText">
+    </div>
+
+    <ul class="list js-todo_list">
+      <li class="list__item js-todo_list-item" v-for="(todo, index) in filteredItems" :key="todo.id" :class="[isActive == true ? 'list__item--done':'']">
+        <i class="fa icon-check" aria-hidden="true" :class="[isActive == true ? 'fa-check-square':'fa-square-o']" @click="todoDone"></i>
+        <span class="js-todo_list-text">{{ todo.text }}</span>
+        <input type="text" class="editText" value="サンプルTODOタスク">
+        <i class="fa fa-trash icon-trash" aria-hidden="true" @click="todoDelete(todo.index)"></i>
+      </li>
+    </ul>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13"></script>
+<script src="app.js"></script>
+</body>
+</html>
